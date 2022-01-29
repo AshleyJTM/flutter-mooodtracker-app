@@ -5,8 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase/pages/homepage.dart';
 import 'package:firebase/pages/moodpage.dart';
 import 'pages/splash.dart';
-import 'code/add_remove.dart';
-import 'code/datepicker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +43,7 @@ class _MainPageState extends State<MainPage> {
     DatePage(),
   ];
 
-  @override
+  @override // Test
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[currentIndex],
