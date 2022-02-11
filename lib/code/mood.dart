@@ -19,7 +19,7 @@ class _MyMoodPageState extends State<MyMoodPage> {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('baby').snapshots(),
+      stream: FirebaseFirestore.instance.collection('moods').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
@@ -48,14 +48,14 @@ class _MyMoodPageState extends State<MyMoodPage> {
         ),
         child: ListTile(
           title: Text(record.name),
-          trailing: Text(record.votes.toString()),
+          trailing: Text(record.mood.toString()),
           onTap: () =>  FirebaseFirestore.instance.runTransaction((transaction) async {
             DocumentReference ref = record.reference as DocumentReference;
             final freshSnapshot = await transaction.get(ref);
             final fresh = Record.fromSnapshot(freshSnapshot);
 
             await transaction
-                .update(ref, {'votes': fresh.votes + 1});
+                .update(ref, {'mood': fresh.mood + 1});
           }),
         ),
       ),
@@ -65,18 +65,18 @@ class _MyMoodPageState extends State<MyMoodPage> {
 
 class Record {
   final String name;
-  final int votes;
+  final int mood;
   final DocumentReference? reference;
 
   Record.fromMap(Map<dynamic, dynamic> map, {this.reference})
-      : assert(map['name'] != null),
-        assert(map['votes'] != null),
-        name = map['name'],
-        votes = map['votes'];
+      : assert(map['taskDetails'] != null),
+        assert(map['mood'] != null),
+        name = map['taskDetails'],
+        mood = map['mood'];
 
   Record.fromSnapshot(DocumentSnapshot? snapshot)
       : this.fromMap(snapshot!.data() as Map<dynamic, dynamic>, reference: snapshot!.reference);
 
   @override
-  String toString() => "Record<$name:$votes>";
+  String toString() => "Record<$name:$mood>";
 }

@@ -22,6 +22,8 @@ class FirebaseAuthDemo extends StatefulWidget {
 
 class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
   final CollectionReference collectionReference = FirebaseFirestore.instance.collection('moods');
+  final CollectionReference cRef = FirebaseFirestore.instance.collection('graphmoods');
+
 
   var selectedDate = DateTime.now();
   _selectDate(BuildContext context) async {
@@ -69,10 +71,15 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
               children: [
                 GestureDetector(
                   onTap: () async {
+
                     await collectionReference.add({
                       'mood': 5,
                       'date': selectedDate,
+                      'colorVal': "0xff109618",
+                      'taskDetails': "Happy",
                     });
+
+                    // await cRef.add({'mood': fresh.mood + 1});
                   },
                   child: Image.asset('images/5.jpg',
                     width: 60,
@@ -84,6 +91,8 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                     await collectionReference.add({
                       'mood': 4,
                       'date': selectedDate,
+                      'colorVal': "0xffE8005A",
+                      'taskDetails': "Average",
                     });
                   },
                   child: Image.asset('images/4.jpg',
@@ -150,4 +159,25 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
       ),
     );
   }
+}
+
+
+
+
+class Record {
+  final String name;
+  final int mood;
+  final DocumentReference? reference;
+
+  Record.fromMap(Map<dynamic, dynamic> map, {this.reference})
+      : assert(map['taskDetails'] != null), // Assert checks for nul safety in values.
+        assert(map['mood'] != null),
+        name = map['taskDetails'], // Maps data from API to Variable
+        mood = map['mood'];
+
+  Record.fromSnapshot(DocumentSnapshot? snapshot)
+      : this.fromMap(snapshot!.data() as Map<dynamic, dynamic>, reference: snapshot!.reference);
+
+  @override
+  String toString() => "Record<$name:$mood>";
 }

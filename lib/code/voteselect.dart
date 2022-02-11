@@ -63,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+// Record Model
 class Record {
   final String name;
   final int votes;
