@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:firebase/models/mood.dart';
 
 class MoodRow extends StatelessWidget {
   @override
@@ -14,7 +15,6 @@ class MoodRow extends StatelessWidget {
   }
 }
 
-
 class FirebaseAuthDemo extends StatefulWidget {
   @override
   State<FirebaseAuthDemo> createState() => _FirebaseAuthDemoState();
@@ -24,7 +24,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
   final CollectionReference collectionReference = FirebaseFirestore.instance.collection('moods');
   final CollectionReference cRef = FirebaseFirestore.instance.collection('graphmoods');
 
-
+// Date & Time select function
   var selectedDate = DateTime.now();
   _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -51,19 +51,22 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
           children: [
             Text(
               "${selectedDate.toLocal()}".split(' ')[0],
-              style: TextStyle(fontSize: 55, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             RaisedButton(
               onPressed: () => _selectDate(context),
-              child: Text(
+              child: const Text(
                 'Select date',
                 style:
                 TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),
               color: Colors.greenAccent,
+            ),
+            const SizedBox(
+              height: 20.0,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,14 +75,19 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                 GestureDetector(
                   onTap: () async {
 
+                    // Adds data into mood database as a new document
                     await collectionReference.add({
-                      'mood': 5,
                       'date': selectedDate,
-                      'colorVal': "0xff109618",
-                      'taskDetails': "Happy",
+                      'colorVal': "0xff06a118",
+                      'moodDetails': "Very Happy",
+                      //'desc': "I feel very happy today",
                     });
 
-                    // await cRef.add({'mood': fresh.mood + 1});
+                    // Collects document from graph moods database and updates by one value
+                   var docRef = cRef.doc('Very Happy');
+                   docRef.get().then((doc) => {
+                    docRef.update({'moodVal': doc.get('moodVal')+1})
+                   });
                   },
                   child: Image.asset('images/5.jpg',
                     width: 60,
@@ -88,11 +96,18 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                 ),
                 GestureDetector(
                   onTap: () async {
+
+                    // Adds data into mood database as a new document
                     await collectionReference.add({
-                      'mood': 4,
                       'date': selectedDate,
-                      'colorVal': "0xffE8005A",
-                      'taskDetails': "Average",
+                      'colorVal': "0xff7be815",
+                      'moodDetails': "Happy",
+                    });
+
+                    // Collects document from graph moods database and updates by one value
+                    var docRef = cRef.doc('Happy');
+                    docRef.get().then((doc) => {
+                      docRef.update({'moodVal': doc.get('moodVal')+1})
                     });
                   },
                   child: Image.asset('images/4.jpg',
@@ -102,9 +117,18 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                 ),
                 GestureDetector(
                   onTap: () async {
+
+                    // Adds data into mood database as a new document
                     await collectionReference.add({
-                      'mood': 3,
                       'date': selectedDate,
+                      'colorVal': "0xffe7f707",
+                      'moodDetails': "Average",
+                    });
+
+                    // Collects document from graph moods database and updates by one value
+                    var docRef = cRef.doc('Average');
+                    docRef.get().then((doc) => {
+                      docRef.update({'moodVal': doc.get('moodVal')+1})
                     });
                   },
                   child: Image.asset('images/3.jpg',
@@ -114,9 +138,18 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                 ),
                 GestureDetector(
                   onTap: () async {
+
+                    // Adds data into mood database as a new document
                     await collectionReference.add({
-                      'mood': 2,
                       'date': selectedDate,
+                      'colorVal': "0xffff76b07",
+                      'moodDetails': "Upset",
+                    });
+
+                    // Collects document from graph moods database and updates by one value
+                    var docRef = cRef.doc('Upset');
+                    docRef.get().then((doc) => {
+                      docRef.update({'moodVal': doc.get('moodVal')+1})
                     });
                   },
                   child: Image.asset('images/2.jpg',
@@ -126,9 +159,18 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                 ),
                 GestureDetector(
                   onTap: () async {
+
+                    // Adds data into mood database as a new document
                     await collectionReference.add({
-                      'mood': 1,
                       'date': selectedDate,
+                      'colorVal': "0xfff71f07",
+                      'moodDetails': "Depressed",
+                    });
+
+                    // Collects document from graph moods database and updates by one value
+                    var docRef = cRef.doc('Depressed');
+                    docRef.get().then((doc) => {
+                      docRef.update({'moodVal': doc.get('moodVal')+1})
                     });
                   },
                   child: Image.asset('images/1.jpg',
@@ -145,7 +187,8 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                       return ListView(
                         children: snapshot.data!.docs.map((e) => Column(
                           children: [
-                            ListTile(title: Text('${e['mood']}'),),
+                            ListTile(title: Text('${e['moodDetails']}',),),
+                            //Text('${e['date']}'),
                             Divider(color: Colors.black.withOpacity(0.6), thickness: 2,)
                           ],
                         )).toList(),
@@ -170,14 +213,15 @@ class Record {
   final DocumentReference? reference;
 
   Record.fromMap(Map<dynamic, dynamic> map, {this.reference})
-      : assert(map['taskDetails'] != null), // Assert checks for nul safety in values.
+      : assert(map['moodDetails'] != null), // Assert checks for nul safety in values.
         assert(map['mood'] != null),
-        name = map['taskDetails'], // Maps data from API to Variable
+        name = map['moodDetails'], // Maps data from API to Variable
         mood = map['mood'];
+
 
   Record.fromSnapshot(DocumentSnapshot? snapshot)
       : this.fromMap(snapshot!.data() as Map<dynamic, dynamic>, reference: snapshot!.reference);
 
   @override
-  String toString() => "Record<$name:$mood>";
+  String toString() => "Record<$name:$mood:>";
 }

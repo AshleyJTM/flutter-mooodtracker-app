@@ -1,18 +1,18 @@
 
 class Mood {
   final int moodVal;
-  final String taskDetails;
+  final String moodDetails;
   final String colorVal;
-  Mood(this.taskDetails,this.moodVal,this.colorVal);
+  Mood(this.moodDetails,this.moodVal,this.colorVal);
 
   Mood.fromMap(Map<String, dynamic> map)
-      : assert(map['taskDetails'] != null),
-        assert(map['mood'] != null),
+      : assert(map['moodDetails'] != null),
+        assert(map['moodVal'] != null),
         assert(map['colorVal'] != null),
-        taskDetails = map['taskDetails'],
-        moodVal = map['mood'],
+        moodDetails = map['moodDetails'],
+        moodVal = map['moodVal'],
         colorVal=map['colorVal'];
 
   @override
-  String toString() => "Record<$moodVal:$taskDetails>";
+  String toString() => "Record<$moodVal:$moodDetails>";
 }

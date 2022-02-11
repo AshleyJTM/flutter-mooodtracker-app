@@ -70,8 +70,8 @@ class _MainPageState extends State<MainPage> {
             backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+            icon: Icon(Icons.mood),
+            label: 'Moods',
             backgroundColor: Colors.purple,
           ),
           BottomNavigationBarItem(

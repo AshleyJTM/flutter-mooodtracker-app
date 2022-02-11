@@ -17,7 +17,7 @@ class _MoodHomePageState extends State<MoodHomePage> {
     _seriesPieData = <charts.Series<Mood, String>>[];
     _seriesPieData.add(
       charts.Series(
-        domainFn: (Mood mood, _) => mood.taskDetails,
+        domainFn: (Mood mood, _) => mood.moodDetails,
         measureFn: (Mood mood, _) => mood.moodVal,
         colorFn: (Mood mood, _) =>
             charts.ColorUtil.fromDartColor(Color(int.parse(mood.colorVal))),
@@ -38,7 +38,7 @@ class _MoodHomePageState extends State<MoodHomePage> {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Map<String,dynamic>>>(
-      stream: FirebaseFirestore.instance.collection('moods').snapshots(),
+      stream: FirebaseFirestore.instance.collection('graphmoods').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return LinearProgressIndicator();
