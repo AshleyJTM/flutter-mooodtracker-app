@@ -75,8 +75,8 @@ class _MainPageState extends State<MainPage> {
             backgroundColor: Colors.purple,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: Icon(Icons.pie_chart),
+            label: 'Charts',
             backgroundColor: Colors.pink,
           ),
         ],
