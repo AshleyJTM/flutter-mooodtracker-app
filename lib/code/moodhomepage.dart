@@ -44,7 +44,7 @@ class _MoodHomePageState extends State<MoodHomePage> {
           return LinearProgressIndicator();
         } else {
           List<Mood> mood = snapshot.data!.docs
-              .map((documentSnapshot) => Mood.fromMap(documentSnapshot.data))
+              .map((documentSnapshot) => Mood.fromMap(documentSnapshot.data()))
               .toList();
           return _buildChart(context, mood);
         }
