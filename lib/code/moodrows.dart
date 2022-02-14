@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_core/firebase_core.dart';
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -77,7 +79,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
 
                     // Adds data into mood database as a new document
                     await collectionReference.add({
-                      'date': selectedDate,
+                      'date': DateFormat('dd-MM-yyyy').format(selectedDate),
                       'colorVal': "0xff06a118",
                       'moodDetails': "Very Happy",
                       //'desc': "I feel very happy today",
@@ -99,7 +101,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
 
                     // Adds data into mood database as a new document
                     await collectionReference.add({
-                      'date': selectedDate,
+                      'date': DateFormat('dd-MM-yyyy').format(selectedDate),
                       'colorVal': "0xff7be815",
                       'moodDetails': "Happy",
                     });
@@ -120,7 +122,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
 
                     // Adds data into mood database as a new document
                     await collectionReference.add({
-                      'date': selectedDate,
+                      'date': DateFormat('dd-MM-yyyy').format(selectedDate),
                       'colorVal': "0xffe7f707",
                       'moodDetails': "Average",
                     });
@@ -141,7 +143,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
 
                     // Adds data into mood database as a new document
                     await collectionReference.add({
-                      'date': selectedDate,
+                      'date': DateFormat('dd-MM-yyyy').format(selectedDate),
                       'colorVal': "0xffff76b07",
                       'moodDetails': "Upset",
                     });
@@ -162,7 +164,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
 
                     // Adds data into mood database as a new document
                     await collectionReference.add({
-                      'date': selectedDate,
+                      'date': DateFormat('dd-MM-yyyy').format(selectedDate),
                       'colorVal': "0xfff71f07",
                       'moodDetails': "Depressed",
                     });
@@ -181,13 +183,29 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
               ],
             ),
             Expanded(
-                child: StreamBuilder(stream: collectionReference.snapshots(),
+                child: StreamBuilder(stream: collectionReference.orderBy('date', descending: true).snapshots(), // Order ListView using Date
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if(snapshot.hasData){
                       return ListView(
                         children: snapshot.data!.docs.map((e) => Column(
                           children: [
-                            ListTile(title: Text('${e['moodDetails']}',),),
+                            ListTile(
+                              title: Text('${e['moodDetails']} - ${e['date']}',),
+                              subtitle: Text('Description..................'),
+                              trailing: IconButton(
+                                onPressed: () async{
+                                  e.reference.delete();
+                                  var testX = cRef.doc('${e['moodDetails']}',);
+                                  testX.get().then((doc) => {
+                                    testX.update({'moodVal': doc.get('moodVal')-1})
+                                  });
+                                },
+                                color: Colors.black,
+                                icon: Icon(Icons.delete),
+                              ),
+                            ),
+
+
                             //Text('${e['date']}'),
                             Divider(color: Colors.black.withOpacity(0.6), thickness: 2,)
                           ],
