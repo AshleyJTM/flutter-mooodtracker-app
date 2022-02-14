@@ -31,7 +31,6 @@ class _MoodHomePageState extends State<MoodHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Moods')),
       body: _buildBody(context),
     );
   }
@@ -65,12 +64,12 @@ class _MoodHomePageState extends State<MoodHomePage> {
                 style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                height: 10.0,
+                height: 20.0,
               ),
               Expanded(
                 child: charts.PieChart(_seriesPieData,
                     animate: true,
-                    animationDuration: Duration(seconds: 5),
+                    animationDuration: Duration(seconds: 2),
                     behaviors: [
                       new charts.DatumLegend(
                         outsideJustification:
