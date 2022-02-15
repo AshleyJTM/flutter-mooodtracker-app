@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase/models/mood.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-class MoodHomePage extends StatefulWidget {
+class MoodChart extends StatefulWidget {
   @override
-  _MoodHomePageState createState() {
-    return _MoodHomePageState();
+  _MoodChartState createState() {
+    return _MoodChartState();
   }
 }
 
-class _MoodHomePageState extends State<MoodHomePage> {
+class _MoodChartState extends State<MoodChart> {
   late List<charts.Series<Mood, String>> _seriesPieData;
   late List<Mood> mydata;
   _generateData(mydata) {
@@ -61,7 +61,7 @@ class _MoodHomePageState extends State<MoodHomePage> {
             children: <Widget>[
               Text(
                 'Feelings Graph',
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 20.0,

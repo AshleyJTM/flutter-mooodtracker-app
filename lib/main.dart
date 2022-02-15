@@ -1,9 +1,9 @@
-import 'package:firebase/pages/datepickerpage.dart';
-import 'package:firebase/pages/row.dart';
+import 'package:firebase/pages/chartspage.dart';
+import 'package:firebase/pages/moodrowpage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase/pages/homepage.dart';
-import 'package:firebase/pages/moodpage.dart';
+import 'package:firebase/pages/journalpage.dart';
 import 'pages/splash.dart';
 
 void main() async {
@@ -15,7 +15,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  static const String _title = 'Flutter Code Sample';
+  static const String _title = 'NTYOU';
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
   final screens = const[
-    HomePage(),
+    SupportPage(),
     MoodPage(),
     MoodRowPage(),
     DatePage(),
@@ -65,8 +65,8 @@ class _MainPageState extends State<MainPage> {
             backgroundColor: Colors.red,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Icon(Icons.book),
+            label: 'Journal',
             backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
@@ -77,6 +77,11 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.pie_chart),
             label: 'Charts',
+            backgroundColor: Colors.pink,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
             backgroundColor: Colors.pink,
           ),
         ],

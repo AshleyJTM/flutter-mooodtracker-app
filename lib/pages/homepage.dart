@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:firebase/code/voteselect.dart';
+import 'package:firebase/code/support.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class SupportPage extends StatelessWidget {
+  const SupportPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -13,6 +13,6 @@ class HomePage extends StatelessWidget {
         ),
       body: Container(
         margin: EdgeInsets.all(10.0),
-        child: MyHomePage(),
+        child: Support(),
       ));
 }

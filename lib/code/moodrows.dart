@@ -1,11 +1,8 @@
 import 'dart:ui';
-
-import 'package:firebase_core/firebase_core.dart';
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:firebase/models/mood.dart';
+
 
 class MoodRow extends StatelessWidget {
   @override
@@ -13,6 +10,7 @@ class MoodRow extends StatelessWidget {
     return MaterialApp(
       home: FirebaseAuthDemo(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.pink),
     );
   }
 }
@@ -41,11 +39,21 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
       });
   }
 
+final TextEditingController myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -53,19 +61,21 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
           children: [
             Text(
               "${selectedDate.toLocal()}".split(' ')[0],
-              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
-              height: 20.0,
+              height: 10.0,
             ),
             RaisedButton(
               onPressed: () => _selectDate(context),
               child: const Text(
                 'Select date',
                 style:
-                TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
-              color: Colors.greenAccent,
+              color: Color(0xff004877),
+
             ),
             const SizedBox(
               height: 20.0,
@@ -82,8 +92,12 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                       'date': DateFormat('dd-MM-yyyy').format(selectedDate),
                       'colorVal': "0xff06a118",
                       'moodDetails': "Very Happy",
-                      //'desc': "I feel very happy today",
+                      'desc': myController.text,
+                      'image': 'images/5.jpg',
                     });
+
+                    // Clears data in TextField
+                    myController.clear();
 
                     // Collects document from graph moods database and updates by one value
                    var docRef = cRef.doc('Very Happy');
@@ -104,7 +118,12 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                       'date': DateFormat('dd-MM-yyyy').format(selectedDate),
                       'colorVal': "0xff7be815",
                       'moodDetails': "Happy",
+                      'desc': myController.text,
+                      'image': 'images/4.jpg',
                     });
+
+                    // Clears data in TextField
+                    myController.clear();
 
                     // Collects document from graph moods database and updates by one value
                     var docRef = cRef.doc('Happy');
@@ -125,7 +144,12 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                       'date': DateFormat('dd-MM-yyyy').format(selectedDate),
                       'colorVal': "0xffe7f707",
                       'moodDetails': "Average",
+                      'desc': myController.text,
+                      'image': 'images/3.jpg',
                     });
+
+                    // Clears data in TextField
+                    myController.clear();
 
                     // Collects document from graph moods database and updates by one value
                     var docRef = cRef.doc('Average');
@@ -146,7 +170,12 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                       'date': DateFormat('dd-MM-yyyy').format(selectedDate),
                       'colorVal': "0xffff76b07",
                       'moodDetails': "Upset",
+                      'desc': myController.text,
+                      'image': 'images/2.jpg',
                     });
+
+                    // Clears data in TextField
+                    myController.clear();
 
                     // Collects document from graph moods database and updates by one value
                     var docRef = cRef.doc('Upset');
@@ -167,7 +196,12 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                       'date': DateFormat('dd-MM-yyyy').format(selectedDate),
                       'colorVal': "0xfff71f07",
                       'moodDetails': "Depressed",
+                      'desc': myController.text,
+                      'image': 'images/1.jpg',
                     });
+
+                    // Clears data in TextField
+                    myController.clear();
 
                     // Collects document from graph moods database and updates by one value
                     var docRef = cRef.doc('Depressed');
@@ -182,6 +216,16 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                 ),
               ],
             ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            TextField(
+              controller: myController,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.message),
+                hintText: 'How has your day been today?',
+                ),
+              ),
             Expanded(
                 child: StreamBuilder(stream: collectionReference.orderBy('date', descending: true).snapshots(), // Order ListView using Date
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -191,7 +235,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                           children: [
                             ListTile(
                               title: Text('${e['moodDetails']} - ${e['date']}',),
-                              subtitle: Text('Description..................'),
+                              subtitle: Text('${e['desc']}'),
                               trailing: IconButton(
                                 onPressed: () async{
                                   e.reference.delete();
@@ -202,11 +246,9 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                                 },
                                 color: Colors.black,
                                 icon: Icon(Icons.delete),
+                                tooltip: 'Delete',
                               ),
                             ),
-
-
-                            //Text('${e['date']}'),
                             Divider(color: Colors.black.withOpacity(0.6), thickness: 2,)
                           ],
                         )).toList(),
@@ -214,14 +256,13 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                     }
                     return Center(child: CircularProgressIndicator(),);
                   },
-                ))
+                )),
           ],
         ),
       ),
     );
   }
 }
-
 
 
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase/code/mood.dart';
 import 'package:firebase/code/moodrows.dart';
 
 class MoodRowPage extends StatelessWidget {

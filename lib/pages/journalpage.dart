@@ -1,7 +1,5 @@
-import 'package:firebase/code/mood.dart';
-import 'package:firebase/code/voteselect.dart';
 import 'package:flutter/material.dart';
-
+import 'package:firebase/code/journal.dart';
 class MoodPage extends StatelessWidget {
   const MoodPage({Key? key}) : super(key: key);
 
@@ -14,6 +12,6 @@ class MoodPage extends StatelessWidget {
       ),
       body: Container(
         margin: EdgeInsets.all(10.0),
-        child: MyMoodPage(),
+        child: MoodRow(),
       ));
 }

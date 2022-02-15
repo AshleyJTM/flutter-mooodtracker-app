@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase/code/datepicker.dart';
-import 'package:firebase/code/moodhomepage.dart';
+import 'package:firebase/code/charts.dart';
 
 class DatePage extends StatelessWidget {
   const DatePage({Key? key}) : super(key: key);
@@ -14,6 +13,6 @@ class DatePage extends StatelessWidget {
         ),
       body: Container(
         margin: EdgeInsets.all(10.0),
-        child: MoodHomePage(),
+        child: MoodChart(),
       ));
 }
