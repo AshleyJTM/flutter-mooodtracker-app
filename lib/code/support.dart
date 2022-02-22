@@ -16,6 +16,8 @@ class SupportPage extends StatelessWidget {
 class Support extends StatelessWidget {
   const Support({Key? key}) : super(key: key);
 
+  static const textColor = Color(0xff3c73a8); //NTU Blue 0xFF004877
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +27,7 @@ class Support extends StatelessWidget {
           children: [
             Center(
               child: Text(
-                'Support Page',
+                'Support',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -48,7 +50,7 @@ class Support extends StatelessWidget {
                 builder: (context, followLink ) => ElevatedButton(
                   onPressed: followLink,
                   child: Text('Mental health support and services'),
-                style: ElevatedButton.styleFrom(primary: Color(0xff004877))),
+                style: ElevatedButton.styleFrom(primary: textColor)),
               ),
             ),
             SizedBox(
@@ -69,7 +71,7 @@ class Support extends StatelessWidget {
                 builder: (context, followLink ) => ElevatedButton(
                     onPressed: followLink,
                     child: Text('United Kingdom Suicide Support Line'),
-                    style: ElevatedButton.styleFrom(primary: Color(0xff004877))),
+                    style: ElevatedButton.styleFrom(primary: textColor)),
               ),
             ),
             Container(
@@ -80,7 +82,7 @@ class Support extends StatelessWidget {
                 builder: (context, followLink ) => ElevatedButton(
                     onPressed: followLink,
                     child: Text('International Suicide Support Line'),
-                    style: ElevatedButton.styleFrom(primary: Color(0xff004877))),
+                    style: ElevatedButton.styleFrom(primary: textColor)),
               ),
             ),
             Container(
@@ -91,7 +93,7 @@ class Support extends StatelessWidget {
                 builder: (context, followLink ) => ElevatedButton(
                     onPressed: followLink,
                     child: Text('Campaign Against Living Miserably'),
-                    style: ElevatedButton.styleFrom(primary: Color(0xff004877))),
+                    style: ElevatedButton.styleFrom(primary: textColor)),
               ),
             ),
             SizedBox(
@@ -112,7 +114,7 @@ class Support extends StatelessWidget {
                 builder: (context, followLink ) => ElevatedButton(
                     onPressed: followLink,
                     child: Text('NTU health promotion programme'),
-                    style: ElevatedButton.styleFrom(primary: Color(0xff004877))),
+                    style: ElevatedButton.styleFrom(primary: textColor)),
               ),
             ),
             SizedBox(
@@ -133,7 +135,7 @@ class Support extends StatelessWidget {
                 builder: (context, followLink ) => ElevatedButton(
                     onPressed: followLink,
                     child: Text('Student Space'),
-                    style: ElevatedButton.styleFrom(primary: Color(0xff004877))),
+                    style: ElevatedButton.styleFrom(primary: textColor)),
               ),
             ),
           ],

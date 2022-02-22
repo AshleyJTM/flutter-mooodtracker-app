@@ -71,7 +71,7 @@ class _MoodChartState extends State<MoodChart> {
           child: Column(
             children: <Widget>[
               Text(
-                'Feelings Graph',
+                'Charts',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               SizedBox(

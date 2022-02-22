@@ -60,7 +60,7 @@ class _MainPageState extends State<MainPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('NTYOU'),
-        backgroundColor: Color(0xffE8005A),
+        backgroundColor: Color(0xffE8005A), // NTU Pink 0xffE8005A
       ),
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(

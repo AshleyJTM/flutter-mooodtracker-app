@@ -41,7 +41,7 @@ class _SettingsState extends State<Settings> {
           children: [
             Center(
               child: Text(
-                'Settings Page',
+                'Settings',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
