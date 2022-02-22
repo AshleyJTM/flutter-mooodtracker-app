@@ -2,8 +2,18 @@ import 'dart:ui';
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+class JournalPage extends StatelessWidget {
+  const JournalPage({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) => Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        margin: EdgeInsets.all(10.0),
+        child: Journal(),
+      ));
+}
 
-class MoodRow extends StatelessWidget {
+class Journal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,8 +46,6 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
         selectedDate = picked;
       });
   }
-
-
 
   @override
   Widget build(BuildContext context) {

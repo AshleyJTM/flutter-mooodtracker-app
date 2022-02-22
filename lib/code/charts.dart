@@ -3,6 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:firebase/models/mood.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
+class MoodChartsPage extends StatelessWidget {
+  const MoodChartsPage({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) => Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        margin: EdgeInsets.all(10.0),
+        child: MoodChart(),
+      ));
+}
+
 class MoodChart extends StatefulWidget {
   @override
   _MoodChartState createState() {
@@ -75,12 +86,12 @@ class _MoodChartState extends State<MoodChart> {
                         outsideJustification:
                             charts.OutsideJustification.endDrawArea,
                         horizontalFirst: false,
-                        desiredMaxRows: 2,
+                        position: charts.BehaviorPosition.inside,
+                        desiredMaxRows: 3,
                         cellPadding:
                             new EdgeInsets.only(right: 4.0, bottom: 4.0,top:4.0),
                         entryTextStyle: charts.TextStyleSpec(
                             color: charts.MaterialPalette.purple.shadeDefault,
-                            fontFamily: 'Georgia',
                             fontSize: 18),
                       )
                     ],

@@ -1,8 +1,26 @@
 import 'dart:ui';
+import 'package:firebase/main.dart';
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'journal.dart';
 
+class MoodRowPage extends StatefulWidget {
+  const MoodRowPage({Key? key}) : super(key: key);
+
+  @override
+  State<MoodRowPage> createState() => _MoodRowPageState();
+}
+
+class _MoodRowPageState extends State<MoodRowPage> {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        margin: EdgeInsets.all(10.0),
+        child: MoodRow(),
+      ));
+}
 
 class MoodRow extends StatelessWidget {
   @override
@@ -21,11 +39,14 @@ class FirebaseAuthDemo extends StatefulWidget {
 }
 
 class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
-  final CollectionReference collectionReference = FirebaseFirestore.instance.collection('moods');
-  final CollectionReference cRef = FirebaseFirestore.instance.collection('graphmoods');
+  final CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection('moods');
+  final CollectionReference cRef =
+      FirebaseFirestore.instance.collection('graphmoods');
 
 // Date & Time select function
   var selectedDate = DateTime.now();
+
   _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -39,7 +60,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
       });
   }
 
-final TextEditingController myController = TextEditingController();
+  final TextEditingController myController = TextEditingController();
 
   @override
   void dispose() {
@@ -59,10 +80,12 @@ final TextEditingController myController = TextEditingController();
         child: Column(
           //mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              "${selectedDate.toLocal()}".split(' ')[0],
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            Card(
+              child: Text(
+                "${selectedDate.toLocal()}".split(' ')[0],
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(
               height: 10.0,
@@ -72,10 +95,9 @@ final TextEditingController myController = TextEditingController();
               child: const Text(
                 'Select date',
                 style:
-                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               color: Color(0xff004877),
-
             ),
             const SizedBox(
               height: 20.0,
@@ -86,6 +108,23 @@ final TextEditingController myController = TextEditingController();
               children: [
                 GestureDetector(
                   onTap: () async {
+
+                    // Snack bar shows notification and navigates to JournalPage.
+                    final snackBar = SnackBar(
+                      content: Text('Mood added successfully!'),
+                      action: SnackBarAction(
+                        label: 'View',
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => JournalPage(),
+                              ));
+                        },
+                      ),
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
                     // Adds data into mood database as a new document
                     await collectionReference.add({
@@ -100,18 +139,36 @@ final TextEditingController myController = TextEditingController();
                     myController.clear();
 
                     // Collects document from graph moods database and updates by one value
-                   var docRef = cRef.doc('Very Happy');
-                   docRef.get().then((doc) => {
-                    docRef.update({'moodVal': doc.get('moodVal')+1})
-                   });
+                    var docRef = cRef.doc('Very Happy');
+                    docRef.get().then((doc) => {
+                          docRef.update({'moodVal': doc.get('moodVal') + 1})
+                        });
                   },
-                  child: Image.asset('images/5.jpg',
+                  child: Image.asset(
+                    'images/5.jpg',
                     width: 60,
                     fit: BoxFit.cover,
                   ),
                 ),
                 GestureDetector(
                   onTap: () async {
+
+                    // Snack bar shows notification and navigates to JournalPage.
+                    final snackBar = SnackBar(
+                      content: Text('Mood added successfully!'),
+                      action: SnackBarAction(
+                        label: 'View',
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => JournalPage(),
+                              ));
+                        },
+                      ),
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
                     // Adds data into mood database as a new document
                     await collectionReference.add({
@@ -128,16 +185,34 @@ final TextEditingController myController = TextEditingController();
                     // Collects document from graph moods database and updates by one value
                     var docRef = cRef.doc('Happy');
                     docRef.get().then((doc) => {
-                      docRef.update({'moodVal': doc.get('moodVal')+1})
-                    });
+                          docRef.update({'moodVal': doc.get('moodVal') + 1})
+                        });
                   },
-                  child: Image.asset('images/4.jpg',
+                  child: Image.asset(
+                    'images/4.jpg',
                     width: 60,
                     fit: BoxFit.cover,
                   ),
                 ),
                 GestureDetector(
                   onTap: () async {
+
+                    // Snack bar shows notification and navigates to JournalPage.
+                    final snackBar = SnackBar(
+                      content: Text('Mood added successfully!'),
+                      action: SnackBarAction(
+                        label: 'View',
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => JournalPage(),
+                              ));
+                        },
+                      ),
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
                     // Adds data into mood database as a new document
                     await collectionReference.add({
@@ -154,10 +229,11 @@ final TextEditingController myController = TextEditingController();
                     // Collects document from graph moods database and updates by one value
                     var docRef = cRef.doc('Average');
                     docRef.get().then((doc) => {
-                      docRef.update({'moodVal': doc.get('moodVal')+1})
-                    });
+                          docRef.update({'moodVal': doc.get('moodVal') + 1})
+                        });
                   },
-                  child: Image.asset('images/3.jpg',
+                  child: Image.asset(
+                    'images/3.jpg',
                     width: 60,
                     fit: BoxFit.cover,
                   ),
@@ -165,11 +241,28 @@ final TextEditingController myController = TextEditingController();
                 GestureDetector(
                   onTap: () async {
 
+                    // Snack bar shows notification and navigates to JournalPage.
+                    final snackBar = SnackBar(
+                      content: Text('Mood added successfully!'),
+                      action: SnackBarAction(
+                        label: 'View',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => JournalPage(),
+                            ));
+                        },
+                      ),
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
                     // Adds data into mood database as a new document
                     await collectionReference.add({
                       'date': DateFormat('dd-MM-yyyy').format(selectedDate),
                       'colorVal': "0xffff76b07",
-                      'moodDetails': "Upset",
+                      'moodDetails': "Sad",
                       'desc': myController.text,
                       'image': 'images/2.jpg',
                     });
@@ -178,12 +271,13 @@ final TextEditingController myController = TextEditingController();
                     myController.clear();
 
                     // Collects document from graph moods database and updates by one value
-                    var docRef = cRef.doc('Upset');
+                    var docRef = cRef.doc('Sad');
                     docRef.get().then((doc) => {
-                      docRef.update({'moodVal': doc.get('moodVal')+1})
-                    });
+                          docRef.update({'moodVal': doc.get('moodVal') + 1}),
+                        });
                   },
-                  child: Image.asset('images/2.jpg',
+                  child: Image.asset(
+                    'images/2.jpg',
                     width: 60,
                     fit: BoxFit.cover,
                   ),
@@ -191,11 +285,28 @@ final TextEditingController myController = TextEditingController();
                 GestureDetector(
                   onTap: () async {
 
+                    // Snack bar shows notification and navigates to JournalPage.
+                    final snackBar = SnackBar(
+                      content: Text('Mood added successfully!'),
+                      action: SnackBarAction(
+                        label: 'View',
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => JournalPage(),
+                              ));
+                        },
+                      ),
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
                     // Adds data into mood database as a new document
                     await collectionReference.add({
                       'date': DateFormat('dd-MM-yyyy').format(selectedDate),
                       'colorVal': "0xfff71f07",
-                      'moodDetails': "Depressed",
+                      'moodDetails': "Very Sad",
                       'desc': myController.text,
                       'image': 'images/1.jpg',
                     });
@@ -204,12 +315,13 @@ final TextEditingController myController = TextEditingController();
                     myController.clear();
 
                     // Collects document from graph moods database and updates by one value
-                    var docRef = cRef.doc('Depressed');
+                    var docRef = cRef.doc('Very Sad');
                     docRef.get().then((doc) => {
-                      docRef.update({'moodVal': doc.get('moodVal')+1})
-                    });
+                          docRef.update({'moodVal': doc.get('moodVal') + 1})
+                        });
                   },
-                  child: Image.asset('images/1.jpg',
+                  child: Image.asset(
+                    'images/1.jpg',
                     width: 60,
                     fit: BoxFit.cover,
                   ),
@@ -224,39 +336,39 @@ final TextEditingController myController = TextEditingController();
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.message),
                 hintText: 'How has your day been today?',
-                ),
               ),
-            Expanded(
-                child: StreamBuilder(stream: collectionReference.orderBy('date', descending: true).snapshots(), // Order ListView using Date
-                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if(snapshot.hasData){
-                      return ListView(
-                        children: snapshot.data!.docs.map((e) => Column(
-                          children: [
-                            ListTile(
-                              title: Text('${e['moodDetails']} - ${e['date']}',),
-                              subtitle: Text('${e['desc']}'),
-                              trailing: IconButton(
-                                onPressed: () async{
-                                  e.reference.delete();
-                                  var testX = cRef.doc('${e['moodDetails']}',);
-                                  testX.get().then((doc) => {
-                                    testX.update({'moodVal': doc.get('moodVal')-1})
-                                  });
-                                },
-                                color: Colors.black,
-                                icon: Icon(Icons.delete),
-                                tooltip: 'Delete',
-                              ),
-                            ),
-                            Divider(color: Colors.black.withOpacity(0.6), thickness: 2,)
-                          ],
-                        )).toList(),
-                      );
-                    }
-                    return Center(child: CircularProgressIndicator(),);
-                  },
-                )),
+            ),
+            // Expanded(
+            //     child: StreamBuilder(stream: collectionReference.orderBy('date', descending: true).snapshots(), // Order ListView using Date
+            //       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            //         if(snapshot.hasData){
+            //           return ListView(
+            //             children: snapshot.data!.docs.map((e) => Column(
+            //               children: [
+            //                 ListTile(
+            //                   title: Text('${e['moodDetails']} - ${e['date']}',),
+            //                   subtitle: Text('${e['desc']}'),
+            //                   trailing: IconButton(
+            //                     onPressed: () async{
+            //                       e.reference.delete();
+            //                       var testX = cRef.doc('${e['moodDetails']}',);
+            //                       testX.get().then((doc) => {
+            //                         testX.update({'moodVal': doc.get('moodVal')-1})
+            //                       });
+            //                     },
+            //                     color: Colors.black,
+            //                     icon: Icon(Icons.delete),
+            //                     tooltip: 'Delete',
+            //                   ),
+            //                 ),
+            //                 Divider(color: Colors.black.withOpacity(0.6), thickness: 2,)
+            //               ],
+            //             )).toList(),
+            //           );
+            //         }
+            //         return Center(child: CircularProgressIndicator(),);
+            //       },
+            //     )),
           ],
         ),
       ),
@@ -264,22 +376,22 @@ final TextEditingController myController = TextEditingController();
   }
 }
 
-
-
 class Record {
   final String name;
   final int mood;
   final DocumentReference? reference;
 
   Record.fromMap(Map<dynamic, dynamic> map, {this.reference})
-      : assert(map['moodDetails'] != null), // Assert checks for nul safety in values.
+      : assert(map['moodDetails'] != null),
+        // Assert checks for nul safety in values.
         assert(map['mood'] != null),
-        name = map['moodDetails'], // Maps data from API to Variable
+        name = map['moodDetails'],
+        // Maps data from API to Variable
         mood = map['mood'];
 
-
   Record.fromSnapshot(DocumentSnapshot? snapshot)
-      : this.fromMap(snapshot!.data() as Map<dynamic, dynamic>, reference: snapshot!.reference);
+      : this.fromMap(snapshot!.data() as Map<dynamic, dynamic>,
+            reference: snapshot!.reference);
 
   @override
   String toString() => "Record<$name:$mood:>";

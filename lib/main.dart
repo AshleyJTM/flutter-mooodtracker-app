@@ -1,26 +1,34 @@
-import 'package:firebase/pages/chartspage.dart';
-import 'package:firebase/pages/moodrowpage.dart';
+import 'package:firebase/code/charts.dart';
+import 'package:firebase/code/journal.dart';
+import 'package:firebase/code/moodrows.dart';
+import 'package:firebase/code/settings.dart';
+import 'package:firebase/code/support.dart';
+import 'package:firebase/services/notificationservice.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase/pages/homepage.dart';
-import 'package:firebase/pages/journalpage.dart';
 import 'pages/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  NotificationService().initNotification();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   static const String _title = 'NTYOU';
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: _title,
+      title: MyApp._title,
       color: Color(0xffE8005A),
       home: Splash(),
     );
@@ -32,20 +40,28 @@ class MainPage extends StatefulWidget {
 
   @override
   State<MainPage> createState() => _MainPageState();
+
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentIndex = 0;
+  int currentIndex = 2;
   final screens = const[
     SupportPage(),
-    MoodPage(),
+    JournalPage(),
     MoodRowPage(),
-    DatePage(),
+    MoodChartsPage(),
+    SettingsPage(),
   ];
+
 
   @override // Test
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text('NTYOU'),
+        backgroundColor: Color(0xffE8005A),
+      ),
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white70,
@@ -60,8 +76,8 @@ class _MainPageState extends State<MainPage> {
         onTap: (index) => setState(() => currentIndex = index),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.help),
+            label: 'Support',
             backgroundColor: Colors.red,
           ),
           BottomNavigationBarItem(
