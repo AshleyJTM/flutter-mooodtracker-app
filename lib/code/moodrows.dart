@@ -90,14 +90,17 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
             const SizedBox(
               height: 10.0,
             ),
-            RaisedButton(
-              onPressed: () => _selectDate(context),
-              child: const Text(
-                'Select date',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(60.0),
+              child: RaisedButton(
+                onPressed: () => _selectDate(context),
+                child: const Text(
+                  'Select Date',
+                  style:
+                      TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
+                ),
+                color: Color(0xff3c73a8), // NTU Blue 0xff004877
               ),
-              color: Color(0xff004877),
             ),
             const SizedBox(
               height: 20.0,
@@ -132,7 +135,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                       'colorVal': "0xff06a118",
                       'moodDetails': "Very Happy",
                       'desc': myController.text,
-                      'image': 'images/5.jpg',
+                      'image': 'images/5.png',
                     });
 
                     // Clears data in TextField
@@ -145,7 +148,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                         });
                   },
                   child: Image.asset(
-                    'images/5.jpg',
+                    'images/5.png',
                     width: 60,
                     fit: BoxFit.cover,
                   ),
@@ -176,7 +179,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                       'colorVal': "0xff7be815",
                       'moodDetails': "Happy",
                       'desc': myController.text,
-                      'image': 'images/4.jpg',
+                      'image': 'images/4.png',
                     });
 
                     // Clears data in TextField
@@ -189,7 +192,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                         });
                   },
                   child: Image.asset(
-                    'images/4.jpg',
+                    'images/4.png',
                     width: 60,
                     fit: BoxFit.cover,
                   ),
@@ -220,7 +223,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                       'colorVal': "0xffe7f707",
                       'moodDetails': "Average",
                       'desc': myController.text,
-                      'image': 'images/3.jpg',
+                      'image': 'images/3.png',
                     });
 
                     // Clears data in TextField
@@ -233,7 +236,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                         });
                   },
                   child: Image.asset(
-                    'images/3.jpg',
+                    'images/3.png',
                     width: 60,
                     fit: BoxFit.cover,
                   ),
@@ -264,7 +267,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                       'colorVal': "0xffff76b07",
                       'moodDetails': "Sad",
                       'desc': myController.text,
-                      'image': 'images/2.jpg',
+                      'image': 'images/2.png',
                     });
 
                     // Clears data in TextField
@@ -277,7 +280,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                         });
                   },
                   child: Image.asset(
-                    'images/2.jpg',
+                    'images/2.png',
                     width: 60,
                     fit: BoxFit.cover,
                   ),
@@ -308,7 +311,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                       'colorVal': "0xfff71f07",
                       'moodDetails': "Very Sad",
                       'desc': myController.text,
-                      'image': 'images/1.jpg',
+                      'image': 'images/1.png',
                     });
 
                     // Clears data in TextField
@@ -321,7 +324,7 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                         });
                   },
                   child: Image.asset(
-                    'images/1.jpg',
+                    'images/1.png',
                     width: 60,
                     fit: BoxFit.cover,
                   ),

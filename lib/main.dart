@@ -64,9 +64,9 @@ class _MainPageState extends State<MainPage> {
       ),
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white70,
+        backgroundColor: Colors.white,
         selectedItemColor: Color(0xffE8005A),
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: Color(0xffB4B4B4),
         type: BottomNavigationBarType.fixed,
         iconSize: 30,
         //selectedFontSize: 16,
@@ -76,7 +76,7 @@ class _MainPageState extends State<MainPage> {
         onTap: (index) => setState(() => currentIndex = index),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.help),
+            icon: Icon(Icons.question_answer),
             label: 'Support',
             backgroundColor: Colors.red,
           ),
