@@ -8,12 +8,22 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'pages/splash.dart';
 
+import 'package:firebase/pages/auth_page.dart';
+import 'package:firebase/pages/home_page.dart';
+import 'package:firebase/utils.dart';
+import 'package:firebase/widget/login_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  final user = FirebaseAuth.instance.currentUser;
   NotificationService().initNotification();
   runApp(MyApp());
 }
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -27,8 +37,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: MyApp._title,
+      navigatorKey: navigatorKey,
+      scaffoldMessengerKey: Utils.messengerKey,
+      theme: ThemeData(
+        primarySwatch: Colors.pink,
+      ),
       color: Color(0xffE8005A),
       home: Splash(),
     );
@@ -60,6 +75,13 @@ class _MainPageState extends State<MainPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('NTYOU'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () => FirebaseAuth.instance.signOut(),
+            tooltip: 'Logout',
+          )
+        ],
         backgroundColor: Color(0xffE8005A), // NTU Pink 0xffE8005A
       ),
       body: screens[currentIndex],

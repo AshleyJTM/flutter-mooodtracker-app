@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/link.dart';
@@ -16,14 +17,14 @@ class SettingsPage extends StatelessWidget {
 }
 
 class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+  Settings({Key? key}) : super(key: key);
 
   @override
   State<Settings> createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
-
+  final user = FirebaseAuth.instance.currentUser!;
   bool click = true;
   @override
   void initState() {
@@ -65,7 +66,32 @@ class _SettingsState extends State<Settings> {
                     if (click == false) {NotificationService().cancelAllNotifications();}},
                   ),
               ],
-            )
+            ),
+            SizedBox(height: 300),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Signed in as',
+                    style: TextStyle(fontSize: 17),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    user.email!,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 40),
+                  ElevatedButton.icon(
+                      icon: Icon(Icons.logout, size: 32),
+                      label: Text(
+                        'Logout',
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      onPressed: () => FirebaseAuth.instance.signOut())
+                ],
+              ),
+            ),
           ],
         ),
       ),

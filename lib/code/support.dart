@@ -14,11 +14,11 @@ class SupportPage extends StatelessWidget {
 }
 
 class Support extends StatelessWidget {
-  const Support({Key? key}) : super(key: key);
+  Support({Key? key}) : super(key: key);
 
   static const textColor = Color(0xff3c73a8); //NTU Blue 0xFF004877
+  var align = Alignment.center; // Allignment.centerLeft
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -36,14 +36,14 @@ class Support extends StatelessWidget {
               height: 20,
             ),
             Container(
-              alignment: Alignment.centerLeft,
+              alignment: align,
               child: Text(
                 'NTU Support',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
-              alignment: Alignment.centerLeft,
+             alignment: align,
               child: Link(
                 target: LinkTarget.blank,
                 uri: Uri.parse('https://www.ntu.ac.uk/studenthub/student-help-advice-and-services/health-and-wellbeing/mental-health'),
@@ -57,14 +57,14 @@ class Support extends StatelessWidget {
               height: 20,
             ),
             Container(
-              alignment: Alignment.centerLeft,
+              alignment: align,
               child: Text(
                 'Suicide Helpline',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
-              alignment: Alignment.centerLeft,
+            alignment: align,
               child: Link(
                 target: LinkTarget.blank,
                 uri: Uri.parse('https://www.papyrus-uk.org/'),
@@ -75,7 +75,7 @@ class Support extends StatelessWidget {
               ),
             ),
             Container(
-              alignment: Alignment.centerLeft,
+          alignment: align,
               child: Link(
                 target: LinkTarget.blank,
                 uri: Uri.parse('https://unitedgmh.org/mental-health-support'),
@@ -86,7 +86,7 @@ class Support extends StatelessWidget {
               ),
             ),
             Container(
-              alignment: Alignment.centerLeft,
+             alignment: align,
               child: Link(
                 target: LinkTarget.blank,
                 uri: Uri.parse('https://www.thecalmzone.net/'),
@@ -100,14 +100,14 @@ class Support extends StatelessWidget {
               height: 20,
             ),
             Container(
-              alignment: Alignment.centerLeft,
+           alignment: align,
               child: Text(
                 'Healthy NTU',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
-              alignment: Alignment.centerLeft,
+            alignment: align,
               child: Link(
                 target: LinkTarget.blank,
                 uri: Uri.parse('https://myntuac.sharepoint.com/sites/HealthyNTU'),
@@ -121,14 +121,14 @@ class Support extends StatelessWidget {
               height: 20,
             ),
             Container(
-              alignment: Alignment.centerLeft,
+             alignment: align,
               child: Text(
                 'Student Mind',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
-              alignment: Alignment.centerLeft,
+          alignment: align,
               child: Link(
                 target: LinkTarget.blank,
                 uri: Uri.parse('https://studentspace.org.uk/'),

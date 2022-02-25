@@ -65,7 +65,7 @@ class _MoodChartState extends State<MoodChart> {
     mydata = mooddata;
     _generateData(mydata);
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       child: Container(
         child: Center(
           child: Column(

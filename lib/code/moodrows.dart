@@ -71,9 +71,8 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
+    return SingleChildScrollView(
+      child: Container(
         padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
