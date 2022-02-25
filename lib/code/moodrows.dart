@@ -71,308 +71,306 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          //mainAxisSize: MainAxisSize.min,
-          children: [
-            Card(
-              child: Text(
-                "${selectedDate.toLocal()}".split(' ')[0],
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: ListView(
+        //mainAxisSize: MainAxisSize.min,
+        children: [
+          Card(
+            child: Text(
+              "${selectedDate.toLocal()}".split(' ')[0],
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+            ),
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(60.0),
+            child: RaisedButton(
+              onPressed: () => _selectDate(context),
+              child: const Text(
+                'Select Date',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
               ),
+              color: Color(0xff3c73a8), // NTU Blue 0xff004877
             ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(60.0),
-              child: RaisedButton(
-                onPressed: () => _selectDate(context),
-                child: const Text(
-                  'Select Date',
-                  style:
-                      TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
-                ),
-                color: Color(0xff3c73a8), // NTU Blue 0xff004877
-              ),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                GestureDetector(
-                  onTap: () async {
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                onTap: () async {
 
-                    // Snack bar shows notification and navigates to JournalPage.
-                    final snackBar = SnackBar(
-                      content: Text('Mood added successfully!'),
-                      action: SnackBarAction(
-                        label: 'View',
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => JournalPage(),
-                              ));
-                        },
-                      ),
-                    );
-
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-                    // Adds data into mood database as a new document
-                    await collectionReference.add({
-                      'date': DateFormat('dd-MM-yyyy').format(selectedDate),
-                      'colorVal': "0xff06a118",
-                      'moodDetails': "Very Happy",
-                      'desc': myController.text,
-                      'image': 'images/5.png',
-                    });
-
-                    // Clears data in TextField
-                    myController.clear();
-
-                    // Collects document from graph moods database and updates by one value
-                    var docRef = cRef.doc('Very Happy');
-                    docRef.get().then((doc) => {
-                          docRef.update({'moodVal': doc.get('moodVal') + 1})
-                        });
-                  },
-                  child: Image.asset(
-                    'images/5.png',
-                    width: 60,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () async {
-
-                    // Snack bar shows notification and navigates to JournalPage.
-                    final snackBar = SnackBar(
-                      content: Text('Mood added successfully!'),
-                      action: SnackBarAction(
-                        label: 'View',
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => JournalPage(),
-                              ));
-                        },
-                      ),
-                    );
-
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-                    // Adds data into mood database as a new document
-                    await collectionReference.add({
-                      'date': DateFormat('dd-MM-yyyy').format(selectedDate),
-                      'colorVal': "0xff7be815",
-                      'moodDetails': "Happy",
-                      'desc': myController.text,
-                      'image': 'images/4.png',
-                    });
-
-                    // Clears data in TextField
-                    myController.clear();
-
-                    // Collects document from graph moods database and updates by one value
-                    var docRef = cRef.doc('Happy');
-                    docRef.get().then((doc) => {
-                          docRef.update({'moodVal': doc.get('moodVal') + 1})
-                        });
-                  },
-                  child: Image.asset(
-                    'images/4.png',
-                    width: 60,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () async {
-
-                    // Snack bar shows notification and navigates to JournalPage.
-                    final snackBar = SnackBar(
-                      content: Text('Mood added successfully!'),
-                      action: SnackBarAction(
-                        label: 'View',
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => JournalPage(),
-                              ));
-                        },
-                      ),
-                    );
-
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-                    // Adds data into mood database as a new document
-                    await collectionReference.add({
-                      'date': DateFormat('dd-MM-yyyy').format(selectedDate),
-                      'colorVal': "0xffe7f707",
-                      'moodDetails': "Average",
-                      'desc': myController.text,
-                      'image': 'images/3.png',
-                    });
-
-                    // Clears data in TextField
-                    myController.clear();
-
-                    // Collects document from graph moods database and updates by one value
-                    var docRef = cRef.doc('Average');
-                    docRef.get().then((doc) => {
-                          docRef.update({'moodVal': doc.get('moodVal') + 1})
-                        });
-                  },
-                  child: Image.asset(
-                    'images/3.png',
-                    width: 60,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () async {
-
-                    // Snack bar shows notification and navigates to JournalPage.
-                    final snackBar = SnackBar(
-                      content: Text('Mood added successfully!'),
-                      action: SnackBarAction(
-                        label: 'View',
-                        onPressed: () {
-                          Navigator.push(
+                  // Snack bar shows notification and navigates to JournalPage.
+                  final snackBar = SnackBar(
+                    content: Text('Mood added successfully!'),
+                    action: SnackBarAction(
+                      label: 'View',
+                      onPressed: () {
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => JournalPage(),
+                              builder: (context) => JournalPage(),
                             ));
-                        },
-                      ),
-                    );
+                      },
+                    ),
+                  );
 
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-                    // Adds data into mood database as a new document
-                    await collectionReference.add({
-                      'date': DateFormat('dd-MM-yyyy').format(selectedDate),
-                      'colorVal': "0xffff76b07",
-                      'moodDetails': "Sad",
-                      'desc': myController.text,
-                      'image': 'images/2.png',
-                    });
+                  // Adds data into mood database as a new document
+                  await collectionReference.add({
+                    'date': DateFormat('dd-MM-yyyy').format(selectedDate),
+                    'colorVal': "0xff06a118",
+                    'moodDetails': "Very Happy",
+                    'desc': myController.text,
+                    'image': 'images/5.png',
+                  });
 
-                    // Clears data in TextField
-                    myController.clear();
+                  // Clears data in TextField
+                  myController.clear();
 
-                    // Collects document from graph moods database and updates by one value
-                    var docRef = cRef.doc('Sad');
-                    docRef.get().then((doc) => {
-                          docRef.update({'moodVal': doc.get('moodVal') + 1}),
-                        });
-                  },
-                  child: Image.asset(
-                    'images/2.png',
-                    width: 60,
-                    fit: BoxFit.cover,
-                  ),
+                  // Collects document from graph moods database and updates by one value
+                  var docRef = cRef.doc('Very Happy');
+                  docRef.get().then((doc) => {
+                        docRef.update({'moodVal': doc.get('moodVal') + 1})
+                      });
+                },
+                child: Image.asset(
+                  'images/5.png',
+                  width: 60,
+                  fit: BoxFit.cover,
                 ),
-                GestureDetector(
-                  onTap: () async {
-
-                    // Snack bar shows notification and navigates to JournalPage.
-                    final snackBar = SnackBar(
-                      content: Text('Mood added successfully!'),
-                      action: SnackBarAction(
-                        label: 'View',
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => JournalPage(),
-                              ));
-                        },
-                      ),
-                    );
-
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-                    // Adds data into mood database as a new document
-                    await collectionReference.add({
-                      'date': DateFormat('dd-MM-yyyy').format(selectedDate),
-                      'colorVal': "0xfff71f07",
-                      'moodDetails': "Very Sad",
-                      'desc': myController.text,
-                      'image': 'images/1.png',
-                    });
-
-                    // Clears data in TextField
-                    myController.clear();
-
-                    // Collects document from graph moods database and updates by one value
-                    var docRef = cRef.doc('Very Sad');
-                    docRef.get().then((doc) => {
-                          docRef.update({'moodVal': doc.get('moodVal') + 1})
-                        });
-                  },
-                  child: Image.asset(
-                    'images/1.png',
-                    width: 60,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            TextField(
-              controller: myController,
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.message),
-                hintText: 'How has your day been today?',
               ),
+              GestureDetector(
+                onTap: () async {
+
+                  // Snack bar shows notification and navigates to JournalPage.
+                  final snackBar = SnackBar(
+                    content: Text('Mood added successfully!'),
+                    action: SnackBarAction(
+                      label: 'View',
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => JournalPage(),
+                            ));
+                      },
+                    ),
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                  // Adds data into mood database as a new document
+                  await collectionReference.add({
+                    'date': DateFormat('dd-MM-yyyy').format(selectedDate),
+                    'colorVal': "0xff7be815",
+                    'moodDetails': "Happy",
+                    'desc': myController.text,
+                    'image': 'images/4.png',
+                  });
+
+                  // Clears data in TextField
+                  myController.clear();
+
+                  // Collects document from graph moods database and updates by one value
+                  var docRef = cRef.doc('Happy');
+                  docRef.get().then((doc) => {
+                        docRef.update({'moodVal': doc.get('moodVal') + 1})
+                      });
+                },
+                child: Image.asset(
+                  'images/4.png',
+                  width: 60,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              GestureDetector(
+                onTap: () async {
+
+                  // Snack bar shows notification and navigates to JournalPage.
+                  final snackBar = SnackBar(
+                    content: Text('Mood added successfully!'),
+                    action: SnackBarAction(
+                      label: 'View',
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => JournalPage(),
+                            ));
+                      },
+                    ),
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                  // Adds data into mood database as a new document
+                  await collectionReference.add({
+                    'date': DateFormat('dd-MM-yyyy').format(selectedDate),
+                    'colorVal': "0xffe7f707",
+                    'moodDetails': "Average",
+                    'desc': myController.text,
+                    'image': 'images/3.png',
+                  });
+
+                  // Clears data in TextField
+                  myController.clear();
+
+                  // Collects document from graph moods database and updates by one value
+                  var docRef = cRef.doc('Average');
+                  docRef.get().then((doc) => {
+                        docRef.update({'moodVal': doc.get('moodVal') + 1})
+                      });
+                },
+                child: Image.asset(
+                  'images/3.png',
+                  width: 60,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              GestureDetector(
+                onTap: () async {
+
+                  // Snack bar shows notification and navigates to JournalPage.
+                  final snackBar = SnackBar(
+                    content: Text('Mood added successfully!'),
+                    action: SnackBarAction(
+                      label: 'View',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => JournalPage(),
+                          ));
+                      },
+                    ),
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                  // Adds data into mood database as a new document
+                  await collectionReference.add({
+                    'date': DateFormat('dd-MM-yyyy').format(selectedDate),
+                    'colorVal': "0xffff76b07",
+                    'moodDetails': "Sad",
+                    'desc': myController.text,
+                    'image': 'images/2.png',
+                  });
+
+                  // Clears data in TextField
+                  myController.clear();
+
+                  // Collects document from graph moods database and updates by one value
+                  var docRef = cRef.doc('Sad');
+                  docRef.get().then((doc) => {
+                        docRef.update({'moodVal': doc.get('moodVal') + 1}),
+                      });
+                },
+                child: Image.asset(
+                  'images/2.png',
+                  width: 60,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              GestureDetector(
+                onTap: () async {
+
+                  // Snack bar shows notification and navigates to JournalPage.
+                  final snackBar = SnackBar(
+                    content: Text('Mood added successfully!'),
+                    action: SnackBarAction(
+                      label: 'View',
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => JournalPage(),
+                            ));
+                      },
+                    ),
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                  // Adds data into mood database as a new document
+                  await collectionReference.add({
+                    'date': DateFormat('dd-MM-yyyy').format(selectedDate),
+                    'colorVal': "0xfff71f07",
+                    'moodDetails': "Very Sad",
+                    'desc': myController.text,
+                    'image': 'images/1.png',
+                  });
+
+                  // Clears data in TextField
+                  myController.clear();
+
+                  // Collects document from graph moods database and updates by one value
+                  var docRef = cRef.doc('Very Sad');
+                  docRef.get().then((doc) => {
+                        docRef.update({'moodVal': doc.get('moodVal') + 1})
+                      });
+                },
+                child: Image.asset(
+                  'images/1.png',
+                  width: 60,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          TextField(
+            controller: myController,
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.message),
+              hintText: 'How has your day been today?',
             ),
-            // Expanded(
-            //     child: StreamBuilder(stream: collectionReference.orderBy('date', descending: true).snapshots(), // Order ListView using Date
-            //       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            //         if(snapshot.hasData){
-            //           return ListView(
-            //             children: snapshot.data!.docs.map((e) => Column(
-            //               children: [
-            //                 ListTile(
-            //                   title: Text('${e['moodDetails']} - ${e['date']}',),
-            //                   subtitle: Text('${e['desc']}'),
-            //                   trailing: IconButton(
-            //                     onPressed: () async{
-            //                       e.reference.delete();
-            //                       var testX = cRef.doc('${e['moodDetails']}',);
-            //                       testX.get().then((doc) => {
-            //                         testX.update({'moodVal': doc.get('moodVal')-1})
-            //                       });
-            //                     },
-            //                     color: Colors.black,
-            //                     icon: Icon(Icons.delete),
-            //                     tooltip: 'Delete',
-            //                   ),
-            //                 ),
-            //                 Divider(color: Colors.black.withOpacity(0.6), thickness: 2,)
-            //               ],
-            //             )).toList(),
-            //           );
-            //         }
-            //         return Center(child: CircularProgressIndicator(),);
-            //       },
-            //     )),
-          ],
-        ),
+          ),
+          // Expanded(
+          //     child: StreamBuilder(stream: collectionReference.orderBy('date', descending: true).snapshots(), // Order ListView using Date
+          //       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          //         if(snapshot.hasData){
+          //           return ListView(
+          //             children: snapshot.data!.docs.map((e) => Column(
+          //               children: [
+          //                 ListTile(
+          //                   title: Text('${e['moodDetails']} - ${e['date']}',),
+          //                   subtitle: Text('${e['desc']}'),
+          //                   trailing: IconButton(
+          //                     onPressed: () async{
+          //                       e.reference.delete();
+          //                       var testX = cRef.doc('${e['moodDetails']}',);
+          //                       testX.get().then((doc) => {
+          //                         testX.update({'moodVal': doc.get('moodVal')-1})
+          //                       });
+          //                     },
+          //                     color: Colors.black,
+          //                     icon: Icon(Icons.delete),
+          //                     tooltip: 'Delete',
+          //                   ),
+          //                 ),
+          //                 Divider(color: Colors.black.withOpacity(0.6), thickness: 2,)
+          //               ],
+          //             )).toList(),
+          //           );
+          //         }
+          //         return Center(child: CircularProgressIndicator(),);
+          //       },
+          //     )),
+        ],
       ),
     );
   }
