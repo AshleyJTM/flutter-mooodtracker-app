@@ -83,13 +83,29 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                               ),
                               subtitle: Text('${e['desc']}'),
                               trailing: IconButton(
-                                onPressed: () async{
-                                  e.reference.delete();
-                                  var testX = cRef.doc('${e['moodDetails']}',);
-                                  testX.get().then((doc) => {
-                                    testX.update({'moodVal': doc.get('moodVal')-1})
-                                  });
-                                },
+                                onPressed: () => showDialog(context: context, builder: (BuildContext context) => AlertDialog(
+                                  title: Text('Delete'),
+                                  content: Text('Are you sure you want to delete this entry?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                        onPressed: () async {
+                                          e.reference.delete();
+                                            var testX = cRef.doc('${e['moodDetails']}',);
+                                            testX.get().then((doc) => {
+                                              testX.update({'moodVal': doc.get('moodVal')-1})
+                                            });
+                                          Navigator.pop(context, 'Delete');
+                                            },
+                                          child: Text('Delete'))
+
+                                  ],
+                                )
+                                //
+                                ),
                                 color: Colors.black,
                                 icon: Icon(Icons.delete),
                                 tooltip: 'Delete',
