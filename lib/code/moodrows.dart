@@ -94,8 +94,11 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
               onPressed: () => _selectDate(context),
               child: const Text(
                 'Select Date',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
               color: Color(0xff3c73a8), // NTU Blue 0xff004877
             ),
@@ -108,43 +111,51 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               GestureDetector(
-                onTap: () async {
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text('Are all your details entered correctly?'),
+                    content:
+                        Text('Mood: Very Happy\nDetails: ${myController.text}'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                          onPressed: () async {
+                            final snackBar = SnackBar(
+                              content: Text('Mood added successfully!'),
+                            );
 
-                  // Snack bar shows notification and navigates to JournalPage.
-                  final snackBar = SnackBar(
-                    content: Text('Mood added successfully!'),
-                    action: SnackBarAction(
-                      label: 'View',
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => JournalPage(),
-                            ));
-                      },
-                    ),
-                  );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
 
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            // Adds data into mood database as a new document
+                            await collectionReference.add({
+                              'date':
+                                  DateFormat('dd-MM-yyyy').format(selectedDate),
+                              'colorVal': "0xff06a118",
+                              'moodDetails': "Very Happy",
+                              'desc': myController.text,
+                              'image': 'images/5.png',
+                            });
 
-                  // Adds data into mood database as a new document
-                  await collectionReference.add({
-                    'date': DateFormat('dd-MM-yyyy').format(selectedDate),
-                    'colorVal': "0xff06a118",
-                    'moodDetails': "Very Happy",
-                    'desc': myController.text,
-                    'image': 'images/5.png',
-                  });
+                            // Clears data in TextField
+                            myController.clear();
 
-                  // Clears data in TextField
-                  myController.clear();
-
-                  // Collects document from graph moods database and updates by one value
-                  var docRef = cRef.doc('Very Happy');
-                  docRef.get().then((doc) => {
-                        docRef.update({'moodVal': doc.get('moodVal') + 1})
-                      });
-                },
+                            // Collects document from graph moods database and updates by one value
+                            var docRef = cRef.doc('Very Happy');
+                            docRef.get().then((doc) => {
+                                  docRef.update(
+                                      {'moodVal': doc.get('moodVal') + 1})
+                                });
+                            Navigator.pop(context, 'Add Mood');
+                          },
+                          child: Text('Yes')),
+                    ],
+                  ),
+                ),
                 child: Image.asset(
                   'images/5.png',
                   width: 60,
@@ -152,43 +163,50 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                 ),
               ),
               GestureDetector(
-                onTap: () async {
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text('Are all your details entered correctly?'),
+                    content: Text('Mood: Happy\nDetails: ${myController.text}'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                          onPressed: () async {
+                            final snackBar = SnackBar(
+                              content: Text('Mood added successfully!'),
+                            );
 
-                  // Snack bar shows notification and navigates to JournalPage.
-                  final snackBar = SnackBar(
-                    content: Text('Mood added successfully!'),
-                    action: SnackBarAction(
-                      label: 'View',
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => JournalPage(),
-                            ));
-                      },
-                    ),
-                  );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
 
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            // Adds data into mood database as a new document
+                            await collectionReference.add({
+                              'date':
+                                  DateFormat('dd-MM-yyyy').format(selectedDate),
+                              'colorVal': "0xff7be815",
+                              'moodDetails': "Happy",
+                              'desc': myController.text,
+                              'image': 'images/4.png',
+                            });
 
-                  // Adds data into mood database as a new document
-                  await collectionReference.add({
-                    'date': DateFormat('dd-MM-yyyy').format(selectedDate),
-                    'colorVal': "0xff7be815",
-                    'moodDetails': "Happy",
-                    'desc': myController.text,
-                    'image': 'images/4.png',
-                  });
+                            // Clears data in TextField
+                            myController.clear();
 
-                  // Clears data in TextField
-                  myController.clear();
-
-                  // Collects document from graph moods database and updates by one value
-                  var docRef = cRef.doc('Happy');
-                  docRef.get().then((doc) => {
-                        docRef.update({'moodVal': doc.get('moodVal') + 1})
-                      });
-                },
+                            // Collects document from graph moods database and updates by one value
+                            var docRef = cRef.doc('Happy');
+                            docRef.get().then((doc) => {
+                                  docRef.update(
+                                      {'moodVal': doc.get('moodVal') + 1})
+                                });
+                            Navigator.pop(context, 'Add Mood');
+                          },
+                          child: Text('Yes')),
+                    ],
+                  ),
+                ),
                 child: Image.asset(
                   'images/4.png',
                   width: 60,
@@ -196,43 +214,51 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                 ),
               ),
               GestureDetector(
-                onTap: () async {
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text('Are all your details entered correctly?'),
+                    content:
+                        Text('Mood: Average\nDetails: ${myController.text}'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                          onPressed: () async {
+                            final snackBar = SnackBar(
+                              content: Text('Mood added successfully!'),
+                            );
 
-                  // Snack bar shows notification and navigates to JournalPage.
-                  final snackBar = SnackBar(
-                    content: Text('Mood added successfully!'),
-                    action: SnackBarAction(
-                      label: 'View',
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => JournalPage(),
-                            ));
-                      },
-                    ),
-                  );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
 
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            // Adds data into mood database as a new document
+                            await collectionReference.add({
+                              'date':
+                                  DateFormat('dd-MM-yyyy').format(selectedDate),
+                              'colorVal': "0xffe7f707",
+                              'moodDetails': "Average",
+                              'desc': myController.text,
+                              'image': 'images/3.png',
+                            });
 
-                  // Adds data into mood database as a new document
-                  await collectionReference.add({
-                    'date': DateFormat('dd-MM-yyyy').format(selectedDate),
-                    'colorVal': "0xffe7f707",
-                    'moodDetails': "Average",
-                    'desc': myController.text,
-                    'image': 'images/3.png',
-                  });
+                            // Clears data in TextField
+                            myController.clear();
 
-                  // Clears data in TextField
-                  myController.clear();
-
-                  // Collects document from graph moods database and updates by one value
-                  var docRef = cRef.doc('Average');
-                  docRef.get().then((doc) => {
-                        docRef.update({'moodVal': doc.get('moodVal') + 1})
-                      });
-                },
+                            // Collects document from graph moods database and updates by one value
+                            var docRef = cRef.doc('Average');
+                            docRef.get().then((doc) => {
+                                  docRef.update(
+                                      {'moodVal': doc.get('moodVal') + 1})
+                                });
+                            Navigator.pop(context, 'Add Mood');
+                          },
+                          child: Text('Yes')),
+                    ],
+                  ),
+                ),
                 child: Image.asset(
                   'images/3.png',
                   width: 60,
@@ -240,43 +266,50 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                 ),
               ),
               GestureDetector(
-                onTap: () async {
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text('Are all your details entered correctly?'),
+                    content: Text('Mood: Sad\nDetails: ${myController.text}'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                          onPressed: () async {
+                            final snackBar = SnackBar(
+                              content: Text('Mood added successfully!'),
+                            );
 
-                  // Snack bar shows notification and navigates to JournalPage.
-                  final snackBar = SnackBar(
-                    content: Text('Mood added successfully!'),
-                    action: SnackBarAction(
-                      label: 'View',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => JournalPage(),
-                          ));
-                      },
-                    ),
-                  );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
 
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            // Adds data into mood database as a new document
+                            await collectionReference.add({
+                              'date':
+                                  DateFormat('dd-MM-yyyy').format(selectedDate),
+                              'colorVal': "0xffff76b07",
+                              'moodDetails': "Sad",
+                              'desc': myController.text,
+                              'image': 'images/2.png',
+                            });
 
-                  // Adds data into mood database as a new document
-                  await collectionReference.add({
-                    'date': DateFormat('dd-MM-yyyy').format(selectedDate),
-                    'colorVal': "0xffff76b07",
-                    'moodDetails': "Sad",
-                    'desc': myController.text,
-                    'image': 'images/2.png',
-                  });
+                            // Clears data in TextField
+                            myController.clear();
 
-                  // Clears data in TextField
-                  myController.clear();
-
-                  // Collects document from graph moods database and updates by one value
-                  var docRef = cRef.doc('Sad');
-                  docRef.get().then((doc) => {
-                        docRef.update({'moodVal': doc.get('moodVal') + 1}),
-                      });
-                },
+                            // Collects document from graph moods database and updates by one value
+                            var docRef = cRef.doc('Sad');
+                            docRef.get().then((doc) => {
+                                  docRef.update(
+                                      {'moodVal': doc.get('moodVal') + 1})
+                                });
+                            Navigator.pop(context, 'Add Mood');
+                          },
+                          child: Text('Yes')),
+                    ],
+                  ),
+                ),
                 child: Image.asset(
                   'images/2.png',
                   width: 60,
@@ -284,43 +317,51 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                 ),
               ),
               GestureDetector(
-                onTap: () async {
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text('Are all your details entered correctly?'),
+                    content:
+                        Text('Mood: Very Sad\nDetails: ${myController.text}'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                          onPressed: () async {
+                            final snackBar = SnackBar(
+                              content: Text('Mood added successfully!'),
+                            );
 
-                  // Snack bar shows notification and navigates to JournalPage.
-                  final snackBar = SnackBar(
-                    content: Text('Mood added successfully!'),
-                    action: SnackBarAction(
-                      label: 'View',
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => JournalPage(),
-                            ));
-                      },
-                    ),
-                  );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
 
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            // Adds data into mood database as a new document
+                            await collectionReference.add({
+                              'date':
+                                  DateFormat('dd-MM-yyyy').format(selectedDate),
+                              'colorVal': "0xfff71f07",
+                              'moodDetails': "Very Sad",
+                              'desc': myController.text,
+                              'image': 'images/1.png',
+                            });
 
-                  // Adds data into mood database as a new document
-                  await collectionReference.add({
-                    'date': DateFormat('dd-MM-yyyy').format(selectedDate),
-                    'colorVal': "0xfff71f07",
-                    'moodDetails': "Very Sad",
-                    'desc': myController.text,
-                    'image': 'images/1.png',
-                  });
+                            // Clears data in TextField
+                            myController.clear();
 
-                  // Clears data in TextField
-                  myController.clear();
-
-                  // Collects document from graph moods database and updates by one value
-                  var docRef = cRef.doc('Very Sad');
-                  docRef.get().then((doc) => {
-                        docRef.update({'moodVal': doc.get('moodVal') + 1})
-                      });
-                },
+                            // Collects document from graph moods database and updates by one value
+                            var docRef = cRef.doc('Very Sad');
+                            docRef.get().then((doc) => {
+                                  docRef.update(
+                                      {'moodVal': doc.get('moodVal') + 1})
+                                });
+                            Navigator.pop(context, 'Add Mood');
+                          },
+                          child: Text('Yes')),
+                    ],
+                  ),
+                ),
                 child: Image.asset(
                   'images/1.png',
                   width: 60,

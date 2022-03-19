@@ -32,21 +32,6 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
   final CollectionReference collectionReference = FirebaseFirestore.instance.collection('moods');
   final CollectionReference cRef = FirebaseFirestore.instance.collection('graphmoods');
 
-// Date & Time select function
-  var selectedDate = DateTime.now();
-  _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
-    );
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-      });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +57,6 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
                                 children: [
                                   Row(
                                     children: [
-
                                       Image.asset('${e['image']}', width: 20,),
                                       SizedBox( width:5),
                                       Text('${e['moodDetails']} - ${e['date']}',),
