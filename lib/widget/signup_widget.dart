@@ -49,7 +49,14 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                 controller: emailController,
                 cursorColor: Colors.white,
                 textInputAction: TextInputAction.next,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.email),
+                    labelText: 'Email',
+                    contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)
+                    )
+                ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (email) =>
                 email != null && !EmailValidator.validate(email)
@@ -60,7 +67,14 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               TextFormField(
                 controller: passwordController,
                 textInputAction: TextInputAction.done,
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    labelText: 'Password',
+                    contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)
+                    )
+                ),
                 obscureText: true,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) => value != null && value.length < 6

@@ -48,9 +48,12 @@ class _FirebaseAuthDemoState extends State<FirebaseAuthDemo> {
             Expanded(
                 child: StreamBuilder(stream: collectionReference.orderBy('date', descending: true).snapshots(), // Order ListView using Date
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if(snapshot.hasData){
-                      return ListView(
-                        children: snapshot.data!.docs.map((e) => Column(
+                  if (snapshot.hasData && snapshot.data!.docs.isEmpty){
+                    return Center(child: Text('Journal is empty.',
+                      style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),));
+                  } else if(snapshot.hasData){
+                    return ListView(
+                      children: snapshot.data!.docs.map((e) => Column(
                           children: [
                             ListTile(
                               title: Column(

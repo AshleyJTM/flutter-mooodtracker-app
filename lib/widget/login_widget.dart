@@ -47,13 +47,27 @@ class _LoginWidgetState extends State<LoginWidget> {
               controller: emailController,
               cursorColor: Colors.white,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.email),
+                  labelText: 'Email',
+                contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10)
+                )
+              ),
             ),
             SizedBox(height: 4),
             TextField(
               controller: passwordController,
               textInputAction: TextInputAction.done,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.lock),
+                  labelText: 'Password',
+                  contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)
+                  )
+              ),
               obscureText: true,
             ),
             SizedBox(height: 20),

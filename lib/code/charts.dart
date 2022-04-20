@@ -24,6 +24,10 @@ class MoodChart extends StatefulWidget {
 class _MoodChartState extends State<MoodChart> {
   late List<charts.Series<Mood, String>> _seriesPieData;
   late List<Mood> mydata;
+
+  final CollectionReference cRef =
+  FirebaseFirestore.instance.collection('graphmoods');
+
   _generateData(mydata) {
     _seriesPieData = <charts.Series<Mood, String>>[];
     _seriesPieData.add(
@@ -61,51 +65,53 @@ class _MoodChartState extends State<MoodChart> {
       },
     );
   }
+
   Widget _buildChart(BuildContext context, List<Mood> mooddata) {
     mydata = mooddata;
     _generateData(mydata);
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      child: Container(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Text(
-                'Charts',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Expanded(
-                child: charts.PieChart(_seriesPieData,
-                    animate: true,
-                    animationDuration: Duration(seconds: 2),
-                    behaviors: [
-                      new charts.DatumLegend(
-                        outsideJustification:
-                            charts.OutsideJustification.endDrawArea,
-                        horizontalFirst: false,
-                        position: charts.BehaviorPosition.inside,
-                        desiredMaxRows: 3,
-                        cellPadding:
-                            new EdgeInsets.only(right: 4.0, bottom: 4.0,top:4.0),
-                        entryTextStyle: charts.TextStyleSpec(
-                            color: charts.MaterialPalette.purple.shadeDefault,
-                            fontSize: 18),
-                      )
-                    ],
-                    defaultRenderer: new charts.ArcRendererConfig(
-                        arcWidth: 100,
-                        arcRendererDecorators: [
-                          new charts.ArcLabelDecorator(
-                              labelPosition: charts.ArcLabelPosition.inside)
-                        ])),
-              ),
-            ],
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+        child: Container(
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'Charts',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Expanded(
+                  child: charts.PieChart(_seriesPieData,
+                      animate: true,
+                      animationDuration: Duration(seconds: 2),
+                      behaviors: [
+                        new charts.DatumLegend(
+                          outsideJustification:
+                          charts.OutsideJustification.endDrawArea,
+                          horizontalFirst: false,
+                          position: charts.BehaviorPosition.inside,
+                          desiredMaxRows: 3,
+                          cellPadding:
+                          new EdgeInsets.only(
+                              right: 4.0, bottom: 4.0, top: 4.0),
+                          entryTextStyle: charts.TextStyleSpec(
+                              color: charts.MaterialPalette.purple.shadeDefault,
+                              fontSize: 18),
+                        )
+                      ],
+                      defaultRenderer: new charts.ArcRendererConfig(
+                          arcWidth: 100,
+                          arcRendererDecorators: [
+                            new charts.ArcLabelDecorator(
+                                labelPosition: charts.ArcLabelPosition.inside)
+                          ])),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    }
   }
-}

@@ -58,6 +58,7 @@ class MainPage extends StatefulWidget {
 
 }
 
+// Navigation pages which defines is create in an array
 class _MainPageState extends State<MainPage> {
   int currentIndex = 2;
   final screens = const[
@@ -69,7 +70,7 @@ class _MainPageState extends State<MainPage> {
   ];
 
 
-  @override // Test
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
